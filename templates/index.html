@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Google Cloud Architect</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #d4edda;
+            text-align: left;
+        }
+        .bot-message {
+            background-color: #ffffff;
+            text-align: left;
+        }
+        @media (max-width: 768px) {
+            .chat-container {
+                max-width: 95%;
+            }
+            h2, p, input, button {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Chat with a Google Cloud Architect</h2>
+        <div id="messages" class="mt-4"></div>
+        <form id="question-form" class="mt-4">
+            <div class="form-group">
+                <input type="text" class="form-control" id="question" placeholder="Type your question here...">
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Send</button>
+                <button id="reset-button" class="btn btn-danger">Reset</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function displayMessage(message, className) {
+            const messageElem = document.createElement('div');
+            messageElem.classList.add('message', className);
+            messageElem.innerHTML = message.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+            document.getElementById('messages').appendChild(messageElem);
+        }
+
+        document.getElementById('question-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const questionElem = document.getElementById('question');
+            const question = questionElem.value.trim();
+            if (question === '') return;
+
+            displayMessage(question, 'user-message');
+            questionElem.value = '';
+
+            displayMessage('Bot is typing...', 'bot-message');
+
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question }),
+                });
+
+                // Remove the "Bot is typing..." message
+                const messages = document.getElementById('messages');
+                messages.removeChild(messages.lastChild);
+
+                if (response.ok) {
+                    const jsonResponse = await response.json();
+                    const answer = jsonResponse.answer;
+                    displayMessage(answer, 'bot-message');
+                } else {
+                    console.error('Error: ', response.statusText);
+                    displayMessage("Sorry, I couldn't process your question. Please try again later.", 'bot-message');
+                }
+            } catch (error) {
+                console.error('Error: ', error);
+                displayMessage("Sorry, I couldn't process your question. Please try again later.", 'bot-message');
+            }
+        });
+
+        document.getElementById('reset-button').addEventListener('click', () => {
+            document.getElementById('messages').innerHTML = '';
+        });
+    </script>
+</body>
+</html>
