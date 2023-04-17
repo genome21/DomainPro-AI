@@ -8,7 +8,7 @@ An AI chatbot specialized in domain-specific knowledge. Set the desired topic (e
 3. Navigate to ```./templates/index.html```
 4. Change the chatbot site title on <b>line 6</b>
 5. Change the chatbot name in the header on <b>line 45</b>
-6. Navigate to ```./app.py```
+6. Navigate to ```../app.py```
 7. Change the bucket name storing the prompt template on <b>line 90</b>
 8. Change the file name of the prompt template on <b>line 91</b>
 9. Create a ```.env``` file in the root of the repo folder and set the following variables to client specs:
