@@ -10,3 +10,6 @@ __pycache__
 *.lock
 *.yml
 *.yaml
+client/
+storage/
+templates/index2.html

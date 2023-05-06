@@ -2,23 +2,12 @@
 import os
 import json
 from flask import Flask, request, jsonify, render_template
-# from langchain import PromptTemplate
 import openai
-# from langchain.prompts import (
-#     ChatPromptTemplate,
-#     PromptTemplate,
-#     SystemMessagePromptTemplate,
-#     AIMessagePromptTemplate,
-#     HumanMessagePromptTemplate,
-# )
 from langchain.schema import (
-    # AIMessage,
     HumanMessage,
     SystemMessage
 )
-# import sys
 from langchain.chat_models import ChatOpenAI
-# from google.cloud import storage
 
 app = Flask(__name__)
 
@@ -46,10 +35,6 @@ def ask():
     elif zresult is False:
         # Send question to OpenAI if content passes moderation
         print("sending question to openai-2")
-        # storage_client = storage.Client()
-        # bucket = storage_client.bucket('openai-roblogic')
-        # blob = bucket.get_blob('newprompt.txt')
-        # read_output = blob.download_as_string()
         read_output = """You are an accomplished Principal Google Cloud
         Architect who has worked for Google Cloud since 2014.  Answer
         questions with a short summary then lay out any necessary steps
@@ -114,10 +99,6 @@ def content_moderation(content):
     if output is False:
         print("Content passed moderation")
         return output
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
-
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
