@@ -25,4 +25,4 @@ After deployment, Vercel will provide you with a URL for your live chatbot appli
 The following example shows a chatbot that has the following prompt template:
 > You are an accomplished Principal Google Cloud Architect who has worked for Google Cloud since 2014.  Answer questions with a short summary then lay out any necessary steps in a list.  Format your responses in markdown.  Refuse to answer any questions unrelated to GCP.
 
-<img src="./static/DomainPro-AI_example.png" width="50%" height="50%">
+<img src="./static/DomainPro-AI_example.png" width="650%" height="65%">
