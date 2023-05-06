@@ -19,7 +19,8 @@
 		"sourcery.sourcery",
 		"GitHub.copilot",
 		"amazonwebservices.aws-toolkit-vscode",
-		"ms-python.pylint"
+		"ms-python.pylint",
+		"ms-azuretools.vscode-docker"
 	]
     }
   }
